@@ -10,7 +10,6 @@ public class DebugCameraController : MonoBehaviour
     void Update()
     {
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal") * speed, Input.GetAxis("Vertical") * speed, 0.0f);
-        UnityEngine.Debug.Log(transform.position);
         transform.position = transform.position + movement * Time.deltaTime;
     }
 }

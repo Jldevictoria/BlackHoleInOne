@@ -18,6 +18,16 @@ public class ScrollSpace : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        double scale = 1.0;
+        double width = Camera.main.orthographicSize * 2.0 * Screen.width / Screen.height;
+        double height = Camera.main.orthographicSize * 2.0 * Screen.height / Screen.width;
+        if (width > height) {
+            scale = width;
+        }
+        else {
+            scale = height;
+        }
+        transform.localScale = new Vector3((float)scale, (float)scale, 1.0f);
         Vector2 offset = material.mainTextureOffset;
         offset.x = transform.position.x / transform.localScale.x / parralax;
         offset.y = transform.position.y / transform.localScale.y / parralax;
