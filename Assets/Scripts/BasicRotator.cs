@@ -23,14 +23,7 @@ public class BasicRotator : MonoBehaviour
     void Update()
     {
         Vector3 rotationVector = transform.rotation.eulerAngles;
-        if (System.Math.Abs(rotationVector.z) == 360.0) {
-            rotationVector.z = 0.0f;
-        }
-        else {
-            rotationVector.z += direction * Time.deltaTime * rotationSpeed;
-        }
-        
-        UnityEngine.Debug.Log(rotationVector);
+        rotationVector.z += direction * Time.deltaTime * rotationSpeed;
         transform.rotation = Quaternion.Euler(rotationVector);
     }
 }
