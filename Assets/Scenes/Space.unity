@@ -222,7 +222,7 @@ PrefabInstance:
     - target: {fileID: 1936294523514050537, guid: 4f7c891056e927e408e8eaae62bb9100,
         type: 3}
       propertyPath: orbitSpeed
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1936294523514050537, guid: 4f7c891056e927e408e8eaae62bb9100,
         type: 3}
@@ -387,6 +387,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3055208511314813542}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &844296648 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7051564259205922141, guid: d00c9555795d52d40ae1de8b122ca7ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 7051564260059096166}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1239154601
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -454,51 +460,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6556589677187522262, guid: b70e3bd7ca105644b9c245294f7100de,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6556589677187522262, guid: b70e3bd7ca105644b9c245294f7100de,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6556589677187522263, guid: b70e3bd7ca105644b9c245294f7100de,
-        type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6556589677187522263, guid: b70e3bd7ca105644b9c245294f7100de,
-        type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6556589677187522263, guid: b70e3bd7ca105644b9c245294f7100de,
-        type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6556589677629908600, guid: b70e3bd7ca105644b9c245294f7100de,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 6556589677629908600, guid: b70e3bd7ca105644b9c245294f7100de,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 6556589677629908603, guid: b70e3bd7ca105644b9c245294f7100de,
-        type: 3}
-      propertyPath: parralax
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 7758600125540484771, guid: b70e3bd7ca105644b9c245294f7100de,
         type: 3}
-      propertyPath: cameraPanSpeed
-      value: 0.1
-      objectReference: {fileID: 0}
+      propertyPath: moonBall
+      value: 
+      objectReference: {fileID: 844296648}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b70e3bd7ca105644b9c245294f7100de, type: 3}
 --- !u!1 &1300471116 stripped
@@ -653,6 +619,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5234782278086153829, guid: d00c9555795d52d40ae1de8b122ca7ca,
+        type: 3}
+      propertyPath: power
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7051564259205922138, guid: d00c9555795d52d40ae1de8b122ca7ca,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -713,8 +684,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: MoonBall
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d00c9555795d52d40ae1de8b122ca7ca, type: 3}
 --- !u!1001 &7156670249733785036
 PrefabInstance:
