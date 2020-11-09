@@ -51,4 +51,10 @@ public class OrbitObject : MonoBehaviour
         float unitAngle = Mathf.Acos(relativePosition.x/radius) * Mathf.Sign(relativePosition.y);
         return unitAngle;
     }
+
+    public void changeTargetBody(GameObject newBody)
+    {
+        targetBody = newBody;
+        Start();
+    }
 }

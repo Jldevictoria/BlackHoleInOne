@@ -11,11 +11,14 @@ public class MoonBallController : MonoBehaviour
     private GameObject line;
     private Vector3 startMousePosition;
     private bool captureMouseMovement;
+    private OrbitObject orbiting;
+
     // Start is called before the first frame update
     void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
+        orbiting = GetComponent<OrbitObject>();
     }
 
     // Update is called once per frame
@@ -46,5 +49,29 @@ public class MoonBallController : MonoBehaviour
             lineRenderer.SetPosition(1, Vector3.zero);
             captureMouseMovement = false;
         }
+
+        // Freeze while holding down mouseclick
+        if (captureMouseMovement)
+        {
+            // Freeze all movements
+            FreezeGame();
+            // Free the moon from its current planet
+            orbiting.enabled = false;
+        }
+        else
+        {
+            // Resume movement
+            UnfreezeGame();
+        }
+    }
+
+    void FreezeGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    void UnfreezeGame()
+    {
+        Time.timeScale = 1;
     }
 }
