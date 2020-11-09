@@ -52,9 +52,10 @@ public class OrbitObject : MonoBehaviour
         return unitAngle;
     }
 
-    public void changeTargetBody(GameObject newBody)
+    public void changeTargetBody(GameObject newBody, float rotation)
     {
         targetBody = newBody;
+        direction = rotation;
         Start();
     }
 }

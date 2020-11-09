@@ -61,6 +61,8 @@ public class MoonBallController : MonoBehaviour
             // Free the moon from its current planet
             orbiting.enabled = false;
             // canLaunch = false; // Turning this off right now because its fun
+            // Make current planet non-interactable
+
         }
         else
         {
@@ -77,5 +79,23 @@ public class MoonBallController : MonoBehaviour
     void UnfreezeGame()
     {
         Time.timeScale = 1;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        print("I am triggered.");
+
+        // Stop moving
+        rigidBody2D.velocity = new Vector2(0, 0);
+
+        // Orbit around new object
+        orbiting.enabled = true;
+        float rotation = -1.0f; // TODO: Make based on collision position
+        orbiting.changeTargetBody(other.gameObject, rotation);
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        print("I am no longer triggered.");
     }
 }
