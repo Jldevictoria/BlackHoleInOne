@@ -11,6 +11,7 @@ public class MoonBallController : MonoBehaviour
     private GameObject line;
     private Vector3 startMousePosition;
     private bool captureMouseMovement;
+    private bool canLaunch;
     private OrbitObject orbiting;
 
     // Start is called before the first frame update
@@ -19,13 +20,15 @@ public class MoonBallController : MonoBehaviour
         rigidBody2D = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         orbiting = GetComponent<OrbitObject>();
+        canLaunch = true;
+        captureMouseMovement = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         // Handle panning camera with mouse click and drag.
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0) && canLaunch) {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
@@ -57,6 +60,7 @@ public class MoonBallController : MonoBehaviour
             FreezeGame();
             // Free the moon from its current planet
             orbiting.enabled = false;
+            // canLaunch = false; // Turning this off right now because its fun
         }
         else
         {
