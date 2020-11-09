@@ -5,26 +5,33 @@ using UnityEngine;
 public class OrbitObject : MonoBehaviour
 {
     public GameObject targetBody;
-    public float radius = 10.0f;
     public bool clockwise = false;
     public float skew = 0.0f;
     public float orbitSpeed = 1.0f;
     public float startAngle = 0.0f;
-    
-    private float angle = 0.0f;
+
+    public float radius = 10.0f;    
+    public float angle = 0.0f;
+
     private float direction = 1.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        angle = startAngle;
+        // Calculate angle and radius based on positions in scene - lets us drag and drop the planets and satellites
+        Vector3 targetPosition = targetBody.transform.position;
+        radius = Vector3.Distance(targetPosition, transform.position);
+        angle = getAngle(targetPosition, transform.position);
+
+        // Sets rotation direction
         if (clockwise) {
             direction = -1.0f;
         }
         else {
             direction = 1.0f;
         }
-        Update();
+
+        // Update isn't needed at bottom of Start() since it's called once per frame
     }
 
     // Update is called once per frame
@@ -32,8 +39,16 @@ public class OrbitObject : MonoBehaviour
     {
         angle += direction * Time.deltaTime * orbitSpeed;
         Vector3 targetPosition = targetBody.transform.position;
-        targetPosition.x += Mathf.Sin(angle) * radius;
-        targetPosition.y += Mathf.Cos(angle) * radius;
+        targetPosition.x += Mathf.Cos(angle) * radius;
+        targetPosition.y += Mathf.Sin(angle) * radius;
         transform.position = targetPosition;
+    }
+
+    // getAngle finds the starting angle of the satellite with respect to the orbit it creates
+    private float getAngle(Vector3 center, Vector3 satellite)
+    {
+        Vector3 relativePosition = satellite - center;
+        float unitAngle = Mathf.Acos(relativePosition.x/radius) * Mathf.Sign(relativePosition.y);
+        return unitAngle;
     }
 }
