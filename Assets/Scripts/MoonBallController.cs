@@ -11,18 +11,24 @@ public class MoonBallController : MonoBehaviour
     private GameObject line;
     private Vector3 startMousePosition;
     private bool captureMouseMovement;
+    private bool canLaunch;
+    private OrbitObject orbiting;
+
     // Start is called before the first frame update
     void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
+        orbiting = GetComponent<OrbitObject>();
+        canLaunch = true;
+        captureMouseMovement = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         // Handle panning camera with mouse click and drag.
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0) && canLaunch) {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
@@ -46,5 +52,50 @@ public class MoonBallController : MonoBehaviour
             lineRenderer.SetPosition(1, Vector3.zero);
             captureMouseMovement = false;
         }
+
+        // Freeze while holding down mouseclick
+        if (captureMouseMovement)
+        {
+            // Freeze all movements
+            FreezeGame();
+            // Free the moon from its current planet
+            orbiting.enabled = false;
+            // canLaunch = false; // Turning this off right now because its fun
+            // Make current planet non-interactable
+
+        }
+        else
+        {
+            // Resume movement
+            UnfreezeGame();
+        }
+    }
+
+    void FreezeGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    void UnfreezeGame()
+    {
+        Time.timeScale = 1;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        print("I am triggered.");
+
+        // Stop moving
+        rigidBody2D.velocity = new Vector2(0, 0);
+
+        // Orbit around new object
+        orbiting.enabled = true;
+        float rotation = -1.0f; // TODO: Make based on collision position
+        orbiting.changeTargetBody(other.gameObject, rotation);
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        print("I am no longer triggered.");
     }
 }
