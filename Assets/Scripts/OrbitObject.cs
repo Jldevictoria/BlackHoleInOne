@@ -30,8 +30,6 @@ public class OrbitObject : MonoBehaviour
         else {
             direction = 1.0f;
         }
-
-        // Update isn't needed at bottom of Start() since it's called once per frame
     }
 
     // Update is called once per frame
