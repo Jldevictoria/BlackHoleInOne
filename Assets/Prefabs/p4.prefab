@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3832679493599781296}
   m_Layer: 0
   m_Name: p4
-  m_TagString: Untagged
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,8 +134,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetBody: {fileID: 0}
-  radius: 10
   clockwise: 0
   skew: 0
   orbitSpeed: 2
   startAngle: 0
+  radius: 10
+  angle: 0

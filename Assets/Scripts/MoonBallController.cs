@@ -19,7 +19,6 @@ public class MoonBallController : MonoBehaviour
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
-        orbiting = GetComponent<OrbitObject>();
         canLaunch = true;
         captureMouseMovement = false;
     }
@@ -48,8 +47,9 @@ public class MoonBallController : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && captureMouseMovement) {
             Vector3 delta = startMousePosition - Camera.main.ScreenToWorldPoint(Input.mousePosition);
             rigidBody2D.velocity = new Vector2((delta.x * power), (delta.y * power));
-            lineRenderer.SetPosition(0, Vector3.zero);
-            lineRenderer.SetPosition(1, Vector3.zero);
+            Vector3 away = new Vector3(10000.0f, 10000.0f, 1.0f);
+            lineRenderer.SetPosition(0, away);
+            lineRenderer.SetPosition(1, away);
             captureMouseMovement = false;
         }
 
@@ -59,7 +59,9 @@ public class MoonBallController : MonoBehaviour
             // Freeze all movements
             FreezeGame();
             // Free the moon from its current planet
-            orbiting.enabled = false;
+            if (orbiting != null) {
+                orbiting.enabled = false;
+            }
             // canLaunch = false; // Turning this off right now because its fun
             // Make current planet non-interactable
 
@@ -83,19 +85,32 @@ public class MoonBallController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        print("I am triggered.");
+        UnityEngine.Debug.Log(gameObject.name + " collided with " + other.name + ".");
 
         // Stop moving
         rigidBody2D.velocity = new Vector2(0, 0);
 
+        // If we do not have an OrbitObject Script, add one.
+        if (orbiting == null) {
+            gameObject.AddComponent<OrbitObject>();
+            orbiting = gameObject.GetComponent<OrbitObject>();
+        }
+
         // Orbit around new object
+        if (other.tag == "BlackHole") {
+            orbiting.orbitSpeed = 2.0f;
+            orbiting.sinkRatio = 0.9991f;
+            orbiting.shrinkRatio = 0.9991f;
+            orbiting.isSinking = true;
+            rigidBody2D.angularVelocity = -120.0f;
+        }
+
         orbiting.enabled = true;
-        float rotation = -1.0f; // TODO: Make based on collision position
-        orbiting.changeTargetBody(other.gameObject, rotation);
+        orbiting.changeTargetBody(other.gameObject, true); // TODO: Make rotation direction based on collision position
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        print("I am no longer triggered.");
+        UnityEngine.Debug.Log(gameObject.name + " collider is no longer triggered.");
     }
 }
