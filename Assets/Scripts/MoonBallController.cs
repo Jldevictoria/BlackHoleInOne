@@ -6,13 +6,19 @@ public class MoonBallController : MonoBehaviour
 {
     public float power;
 
-    private Rigidbody2D rigidBody2D;
-    private LineRenderer lineRenderer;
-    private GameObject line;
-    private Vector3 startMousePosition;
-    private bool captureMouseMovement;
-    private bool canLaunch;
-    private OrbitObject orbiting;
+    // Gravity well business
+    public float gravCoeff;
+    public Dictionary<string, Collider2D> planetArray;
+
+
+    public Rigidbody2D rigidBody2D;
+    public LineRenderer lineRenderer;
+    public GameObject line;
+    public Vector3 startMousePosition;
+    public bool captureMouseMovement;
+    public bool canLaunch;
+    public OrbitObject orbiting;
+    public bool canGravity;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +28,10 @@ public class MoonBallController : MonoBehaviour
         orbiting = GetComponent<OrbitObject>();
         canLaunch = true;
         captureMouseMovement = false;
+        gravCoeff = 100000.0f;
+        canGravity = false;
+        // Check gravity well status
+        checkGravity();
     }
 
     // Update is called once per frame
@@ -60,6 +70,7 @@ public class MoonBallController : MonoBehaviour
             FreezeGame();
             // Free the moon from its current planet
             orbiting.enabled = false;
+            canGravity = true;
             // canLaunch = false; // Turning this off right now because its fun
             // Make current planet non-interactable
 
@@ -69,6 +80,42 @@ public class MoonBallController : MonoBehaviour
             // Resume movement
             UnfreezeGame();
         }
+
+        // Gravity Well Handling
+        // Check if planet array is empty
+        if (planetArray.Count == 0)
+        {
+            // Do nothing
+        }
+        // Else
+        else if(canGravity == true)
+        {
+            // Set up total force vector
+            Vector3 finalForce = Vector3.zero;
+            
+            // for each planet
+            foreach (KeyValuePair<string, Collider2D> entry in planetArray)
+            {
+                // do something with entry.Value or entry.Key
+                // Calculate radius
+                float forceRadius = Vector3.Distance(entry.Value.transform.position, transform.position);
+                // Calculate direction between moon and current object
+                Vector3 forceVector = entry.Value.transform.position - transform.position;
+                Vector3 forceDirection = forceVector / forceRadius;
+                // Calculate force to apply
+                finalForce += forceDirection * gravCoeff / Mathf.Pow(forceRadius, 2);
+                //print(finalForce);
+            }
+            // Add total force
+            rigidBody2D.AddForce(finalForce);
+            print("Force happened");
+        }
+        else
+        {
+            // do nothing
+        }
+
+
     }
 
     void FreezeGame()
@@ -83,19 +130,70 @@ public class MoonBallController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        print("I am triggered.");
+        //print(other.transform.parent.gameObject.name);
+        //print("I am triggered.");
+        if (other.tag == "gravityWell")
+        {
+            planetArray.Add(other.transform.parent.gameObject.name, other);
+        }
+        else if(other.tag == "orbitRing")
+        {
+            // Stop moving
+            rigidBody2D.velocity = new Vector2(0, 0);
+            canGravity = false;
 
-        // Stop moving
-        rigidBody2D.velocity = new Vector2(0, 0);
-
-        // Orbit around new object
-        orbiting.enabled = true;
-        float rotation = -1.0f; // TODO: Make based on collision position
-        orbiting.changeTargetBody(other.gameObject, rotation);
+            // Orbit around new object
+            orbiting.enabled = true;
+            float rotation = -1.0f; // TODO: Make based on collision position
+            orbiting.changeTargetBody(other.gameObject, rotation);
+        }
+        else
+        {
+            // do nothing
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
+        print(other.transform.parent.gameObject.name);
         print("I am no longer triggered.");
+
+        if (other.tag == "gravityWell")
+        {
+            planetArray.Remove(other.transform.parent.gameObject.name);
+        }
+        else if (other.tag == "orbitRing")
+        {
+            // do nothing
+        }
+        else
+        {
+            // do nothing
+        }
     }
+
+    public void checkGravity()
+    {
+        planetArray = new Dictionary<string, Collider2D>();
+        GameObject[] gravityWells; 
+        gravityWells = GameObject.FindGameObjectsWithTag("gravityWell");
+
+        foreach (GameObject gravityWell in gravityWells)
+        {
+            Collider2D collider = gravityWell.GetComponent<Collider2D>();
+
+            // if position is within gravityWell
+            if (collider.bounds.Contains(transform.position))
+            {
+                planetArray.Add(gravityWell.transform.parent.gameObject.name, collider);
+                print(gravityWell.transform.parent.gameObject.name);
+            }
+            // Else
+            else
+            {
+                // do nothing
+            }
+        }
+    }
+
 }
