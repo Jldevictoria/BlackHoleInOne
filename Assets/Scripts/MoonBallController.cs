@@ -70,7 +70,6 @@ public class MoonBallController : MonoBehaviour
             FreezeGame();
             // Free the moon from its current planet
             orbiting.enabled = false;
-            canGravity = true;
             // canLaunch = false; // Turning this off right now because its fun
             // Make current planet non-interactable
 
@@ -132,7 +131,7 @@ public class MoonBallController : MonoBehaviour
     {
         //print(other.transform.parent.gameObject.name);
         //print("I am triggered.");
-        if (other.tag == "gravityWell")
+        if (other.tag == "gravityWellEnd")
         {
             planetArray.Add(other.transform.parent.gameObject.name, other);
         }
@@ -158,7 +157,21 @@ public class MoonBallController : MonoBehaviour
         print(other.transform.parent.gameObject.name);
         print("I am no longer triggered.");
 
-        if (other.tag == "gravityWell")
+
+        if (other.tag == "gravityWellStart")
+        {
+            // If planet already not in orbit
+            if (!orbiting.enabled)
+            {
+                canGravity = true;
+            }
+            // if in orbit
+            else
+            {
+                // do nothing
+            }
+        }
+        else if (other.tag == "gravityWellEnd")
         {
             planetArray.Remove(other.transform.parent.gameObject.name);
         }
@@ -169,6 +182,7 @@ public class MoonBallController : MonoBehaviour
         else
         {
             // do nothing
+
         }
     }
 
@@ -176,7 +190,7 @@ public class MoonBallController : MonoBehaviour
     {
         planetArray = new Dictionary<string, Collider2D>();
         GameObject[] gravityWells; 
-        gravityWells = GameObject.FindGameObjectsWithTag("gravityWell");
+        gravityWells = GameObject.FindGameObjectsWithTag("gravityWellEnd");
 
         foreach (GameObject gravityWell in gravityWells)
         {
