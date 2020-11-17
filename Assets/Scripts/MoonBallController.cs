@@ -28,7 +28,7 @@ public class MoonBallController : MonoBehaviour
         orbiting = GetComponent<OrbitObject>();
         canLaunch = true;
         captureMouseMovement = false;
-        gravCoeff = 100000.0f;
+        gravCoeff = 250000.0f;
         canGravity = false;
         // Check gravity well status
         checkGravity();
@@ -101,8 +101,11 @@ public class MoonBallController : MonoBehaviour
                 // Calculate direction between moon and current object
                 Vector3 forceVector = entry.Value.transform.position - transform.position;
                 Vector3 forceDirection = forceVector / forceRadius;
+                // Get mass from Astral Body Controller
+                float mass = entry.Value.transform.parent.gameObject.GetComponent<AstralBodyController>().mass;
+                print(mass);
                 // Calculate force to apply
-                finalForce += forceDirection * gravCoeff / Mathf.Pow(forceRadius, 2);
+                finalForce += forceDirection * gravCoeff * mass / Mathf.Pow(forceRadius, 2);
                 //print(finalForce);
             }
             // Add total force
