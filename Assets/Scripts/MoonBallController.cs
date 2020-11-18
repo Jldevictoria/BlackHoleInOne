@@ -70,6 +70,7 @@ public class MoonBallController : MonoBehaviour
             FreezeGame();
             // Free the moon from its current planet
             orbiting.enabled = false;
+            canGravity = true;
             // canLaunch = false; // Turning this off right now because its fun
             // Make current planet non-interactable
 
@@ -148,6 +149,9 @@ public class MoonBallController : MonoBehaviour
             orbiting.enabled = true;
             float rotation = -1.0f; // TODO: Make based on collision position
             orbiting.changeTargetBody(other.gameObject, rotation);
+            
+            // Remove from gravity list
+            planetArray.Remove(other.transform.parent.gameObject.name);
         }
         else
         {
@@ -166,7 +170,7 @@ public class MoonBallController : MonoBehaviour
             // If planet already not in orbit
             if (!orbiting.enabled)
             {
-                canGravity = true;
+                planetArray.Add(other.transform.parent.gameObject.name, other);
             }
             // if in orbit
             else
