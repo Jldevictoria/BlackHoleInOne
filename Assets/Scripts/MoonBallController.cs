@@ -69,14 +69,11 @@ public class MoonBallController : MonoBehaviour
             // Freeze all movements
             FreezeGame();
             // Free the moon from its current planet
-<<<<<<< HEAD
             if (orbiting != null) {
                 orbiting.enabled = false;
             }
-=======
-            orbiting.enabled = false;
             canGravity = true;
->>>>>>> main
+
             // canLaunch = false; // Turning this off right now because its fun
             // Make current planet non-interactable
 
@@ -158,10 +155,7 @@ public class MoonBallController : MonoBehaviour
             orbiting.isSinking = true;
             rigidBody2D.angularVelocity = -120.0f;
         }
-
-	//print(other.transform.parent.gameObject.name);
-        //print("I am triggered.");
-        if (other.tag == "gravityWellEnd")
+        else if (other.tag == "gravityWellEnd")
         {
             planetArray.Add(other.transform.parent.gameObject.name, other);
         }
@@ -173,8 +167,8 @@ public class MoonBallController : MonoBehaviour
 
             // Orbit around new object
             orbiting.enabled = true;
-            float rotation = -1.0f; // TODO: Make based on collision position
-            orbiting.changeTargetBody(other.gameObject, rotation);
+            //float rotation = -1.0f; // TODO: Make based on collision position
+            orbiting.changeTargetBody(other.gameObject, false);
             
             // Remove from gravity list
             planetArray.Remove(other.transform.parent.gameObject.name);
