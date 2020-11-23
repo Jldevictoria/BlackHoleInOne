@@ -5,7 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - BlackHole
-  - Planet
+  - orbitRing
+  - gravityWell
+  - planet
+  - gravityWellStart
+  - gravityWellEnd
   layers:
   - Default
   - TransparentFX

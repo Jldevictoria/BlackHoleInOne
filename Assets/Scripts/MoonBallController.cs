@@ -6,13 +6,19 @@ public class MoonBallController : MonoBehaviour
 {
     public float power;
 
-    private Rigidbody2D rigidBody2D;
-    private LineRenderer lineRenderer;
-    private GameObject line;
-    private Vector3 startMousePosition;
-    private bool captureMouseMovement;
-    private bool canLaunch;
-    private OrbitObject orbiting;
+    // Gravity well business
+    public float gravCoeff;
+    public Dictionary<string, Collider2D> planetArray;
+
+
+    public Rigidbody2D rigidBody2D;
+    public LineRenderer lineRenderer;
+    public GameObject line;
+    public Vector3 startMousePosition;
+    public bool captureMouseMovement;
+    public bool canLaunch;
+    public OrbitObject orbiting;
+    public bool canGravity;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +27,10 @@ public class MoonBallController : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         canLaunch = true;
         captureMouseMovement = false;
+        gravCoeff = 250000.0f;
+        canGravity = false;
+        // Check gravity well status
+        checkGravity();
     }
 
     // Update is called once per frame
@@ -59,9 +69,14 @@ public class MoonBallController : MonoBehaviour
             // Freeze all movements
             FreezeGame();
             // Free the moon from its current planet
+<<<<<<< HEAD
             if (orbiting != null) {
                 orbiting.enabled = false;
             }
+=======
+            orbiting.enabled = false;
+            canGravity = true;
+>>>>>>> main
             // canLaunch = false; // Turning this off right now because its fun
             // Make current planet non-interactable
 
@@ -71,6 +86,45 @@ public class MoonBallController : MonoBehaviour
             // Resume movement
             UnfreezeGame();
         }
+
+        // Gravity Well Handling
+        // Check if planet array is empty
+        if (planetArray.Count == 0)
+        {
+            // Do nothing
+        }
+        // Else
+        else if(canGravity == true)
+        {
+            // Set up total force vector
+            Vector3 finalForce = Vector3.zero;
+            
+            // for each planet
+            foreach (KeyValuePair<string, Collider2D> entry in planetArray)
+            {
+                // do something with entry.Value or entry.Key
+                // Calculate radius
+                float forceRadius = Vector3.Distance(entry.Value.transform.position, transform.position);
+                // Calculate direction between moon and current object
+                Vector3 forceVector = entry.Value.transform.position - transform.position;
+                Vector3 forceDirection = forceVector / forceRadius;
+                // Get mass from Astral Body Controller
+                float mass = entry.Value.transform.parent.gameObject.GetComponent<AstralBodyController>().mass;
+                print(mass);
+                // Calculate force to apply
+                finalForce += forceDirection * gravCoeff * mass / Mathf.Pow(forceRadius, 2);
+                //print(finalForce);
+            }
+            // Add total force
+            rigidBody2D.AddForce(finalForce);
+            print("Force happened");
+        }
+        else
+        {
+            // do nothing
+        }
+
+
     }
 
     void FreezeGame()
@@ -105,12 +159,89 @@ public class MoonBallController : MonoBehaviour
             rigidBody2D.angularVelocity = -120.0f;
         }
 
-        orbiting.enabled = true;
-        orbiting.changeTargetBody(other.gameObject, true); // TODO: Make rotation direction based on collision position
+	//print(other.transform.parent.gameObject.name);
+        //print("I am triggered.");
+        if (other.tag == "gravityWellEnd")
+        {
+            planetArray.Add(other.transform.parent.gameObject.name, other);
+        }
+        else if(other.tag == "orbitRing")
+        {
+            // Stop moving
+            rigidBody2D.velocity = new Vector2(0, 0);
+            canGravity = false;
+
+            // Orbit around new object
+            orbiting.enabled = true;
+            float rotation = -1.0f; // TODO: Make based on collision position
+            orbiting.changeTargetBody(other.gameObject, rotation);
+            
+            // Remove from gravity list
+            planetArray.Remove(other.transform.parent.gameObject.name);
+        }
+        else
+        {
+            // do nothing
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
         UnityEngine.Debug.Log(gameObject.name + " collider is no longer triggered.");
+        print(other.transform.parent.gameObject.name);
+        print("I am no longer triggered.");
+
+
+        if (other.tag == "gravityWellStart")
+        {
+            // If planet already not in orbit
+            if (!orbiting.enabled)
+            {
+                planetArray.Add(other.transform.parent.gameObject.name, other);
+            }
+            // if in orbit
+            else
+            {
+                // do nothing
+            }
+        }
+        else if (other.tag == "gravityWellEnd")
+        {
+            planetArray.Remove(other.transform.parent.gameObject.name);
+        }
+        else if (other.tag == "orbitRing")
+        {
+            // do nothing
+        }
+        else
+        {
+            // do nothing
+
+        }
     }
+
+    public void checkGravity()
+    {
+        planetArray = new Dictionary<string, Collider2D>();
+        GameObject[] gravityWells; 
+        gravityWells = GameObject.FindGameObjectsWithTag("gravityWellEnd");
+
+        foreach (GameObject gravityWell in gravityWells)
+        {
+            Collider2D collider = gravityWell.GetComponent<Collider2D>();
+
+            // if position is within gravityWell
+            if (collider.bounds.Contains(transform.position))
+            {
+                planetArray.Add(gravityWell.transform.parent.gameObject.name, collider);
+                print(gravityWell.transform.parent.gameObject.name);
+            }
+            // Else
+            else
+            {
+                // do nothing
+            }
+        }
+    }
+
 }
