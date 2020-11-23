@@ -19,16 +19,20 @@ public class MoonBallController : MonoBehaviour
     public bool canLaunch;
     public OrbitObject orbiting;
     public bool canGravity;
+    public GameObject levelControllerObject;
+    public string[] planetNames;
+    private LevelController levelController;
 
     // Start is called before the first frame update
     void Start()
     {
+        levelController = levelControllerObject.GetComponent<LevelController>();
         rigidBody2D = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         orbiting = GetComponent<OrbitObject>();
         canLaunch = true;
         captureMouseMovement = false;
-        gravCoeff = 250000.0f;
+        gravCoeff = 5000.0f;
         canGravity = false;
         // Check gravity well status
         checkGravity();
@@ -47,6 +51,12 @@ public class MoonBallController : MonoBehaviour
                     UnityEngine.Debug.Log("Player clicked on " + gameObject.name);
                     startMousePosition = transform.position;
                     captureMouseMovement = true;
+                    // Update stroke count
+                    levelController.UpdateLevelScore();
+
+                    // Save current state so we can reload
+                    print("TODO: Game state should save here.");
+                    //levelController.SaveState();
                 }
             }
         }
@@ -71,7 +81,7 @@ public class MoonBallController : MonoBehaviour
             // Free the moon from its current planet
             orbiting.enabled = false;
             canGravity = true;
-            // canLaunch = false; // Turning this off right now because its fun
+            canLaunch = false; // Turning this off right now because its fun
             // Make current planet non-interactable
 
         }
@@ -104,7 +114,7 @@ public class MoonBallController : MonoBehaviour
                 Vector3 forceDirection = forceVector / forceRadius;
                 // Get mass from Astral Body Controller
                 float mass = entry.Value.transform.parent.gameObject.GetComponent<AstralBodyController>().mass;
-                print(mass);
+                //print(mass);
                 // Calculate force to apply
                 finalForce += forceDirection * gravCoeff * mass / Mathf.Pow(forceRadius, 2);
                 //print(finalForce);
@@ -137,21 +147,29 @@ public class MoonBallController : MonoBehaviour
         //print("I am triggered.");
         if (other.tag == "gravityWellEnd")
         {
-            planetArray.Add(other.transform.parent.gameObject.name, other);
+            if (planetArray.ContainsKey(other.transform.parent.gameObject.name))
+            {
+                planetArray[other.transform.parent.gameObject.name] = other;
+            }
+            else
+            {
+                planetArray.Add(other.transform.parent.gameObject.name, other);
+            }
         }
         else if(other.tag == "orbitRing")
         {
             // Stop moving
             rigidBody2D.velocity = new Vector2(0, 0);
             canGravity = false;
-
+            canLaunch = true;
             // Orbit around new object
             orbiting.enabled = true;
             float rotation = -1.0f; // TODO: Make based on collision position
-            orbiting.changeTargetBody(other.gameObject, rotation);
+            orbiting.changeTargetBody(other.transform.parent.gameObject, rotation);
             
             // Remove from gravity list
             planetArray.Remove(other.transform.parent.gameObject.name);
+
         }
         else
         {
@@ -161,16 +179,22 @@ public class MoonBallController : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        print(other.transform.parent.gameObject.name);
-        print("I am no longer triggered.");
-
+        //print(other.transform.parent.gameObject.name);
 
         if (other.tag == "gravityWellStart")
         {
             // If planet already not in orbit
             if (!orbiting.enabled)
             {
-                planetArray.Add(other.transform.parent.gameObject.name, other);
+                if (planetArray.ContainsKey(other.transform.parent.gameObject.name))
+                {
+                    planetArray[other.transform.parent.gameObject.name] = other;
+                }
+                else
+                {
+                    planetArray.Add(other.transform.parent.gameObject.name, other);
+                }
+                print("Leaving " + other.transform.parent.gameObject.name + " well.");
             }
             // if in orbit
             else
@@ -181,10 +205,16 @@ public class MoonBallController : MonoBehaviour
         else if (other.tag == "gravityWellEnd")
         {
             planetArray.Remove(other.transform.parent.gameObject.name);
+            print("Leaving " + other.transform.parent.gameObject.name + " well.");
         }
         else if (other.tag == "orbitRing")
         {
             // do nothing
+        }
+        else if (other.tag == "boundary")
+        {
+            print("TODO: Implement out of bounds logic.");
+            //gameController.OutOfBounds();
         }
         else
         {
@@ -206,8 +236,14 @@ public class MoonBallController : MonoBehaviour
             // if position is within gravityWell
             if (collider.bounds.Contains(transform.position))
             {
-                planetArray.Add(gravityWell.transform.parent.gameObject.name, collider);
-                print(gravityWell.transform.parent.gameObject.name);
+                if (planetArray.ContainsKey(gravityWell.transform.parent.gameObject.name))
+                {
+                    planetArray[gravityWell.transform.parent.gameObject.name] = collider;
+                }
+                else
+                {
+                    planetArray.Add(gravityWell.transform.parent.gameObject.name, collider);
+                }
             }
             // Else
             else

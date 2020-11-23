@@ -9,6 +9,7 @@ TagManager:
   - planet
   - gravityWellStart
   - gravityWellEnd
+  - boundary
   layers:
   - Default
   - TransparentFX
