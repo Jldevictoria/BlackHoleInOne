@@ -4,31 +4,44 @@ using UnityEngine;
 
 public class DebugCameraController : MonoBehaviour
 {
-    public float speed = 5.0f;
-    public float cameraZoomSpeed = 1.0f;
-    public float cameraPanSpeed = 0.1f;
-    public float cameraZoomMax = 100;
-    public float cameraZoomMin = 5;
+    public float cameraZoomSpeed = 25.0f;
+    public float cameraPanSpeed = 0.07f;
+    public float cameraSmoothSpeed = 30.0f;
+    public float cameraZoomMax = 50.0f;
+    public float cameraZoomMin = 5.0f;
     public GameObject moonBall;
 
     private Vector3 previousMousePosition;
     private bool captureMouseMovement;
+    private float targetOrtho;
 
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(moonBall.transform.position.x + 5, moonBall.transform.position.y, transform.position.z);
+        transform.position = new Vector3(moonBall.transform.position.x, moonBall.transform.position.y, transform.position.z);
+        targetOrtho = Camera.main.orthographicSize;
     }
 
     // Update is called once per frame
     void Update()
     {
         // Handle zooming camera with scroll wheel.
-        if ((Input.GetAxis("Mouse ScrollWheel") > 0) && (Camera.main.orthographicSize >= cameraZoomMin)) {
-            Camera.main.orthographicSize -= cameraZoomSpeed;
+        float scroll = Input.GetAxis ("Mouse ScrollWheel");
+        if (scroll != 0.0f) {
+            targetOrtho -= scroll * cameraZoomSpeed;
+            targetOrtho = Mathf.Clamp (targetOrtho, cameraZoomMin, cameraZoomMax);
         }
-        else if ((Input.GetAxis("Mouse ScrollWheel") < 0) && (Camera.main.orthographicSize <= cameraZoomMax)) {
-            Camera.main.orthographicSize += cameraZoomSpeed;
+
+        if ((Camera.main.orthographicSize >= cameraZoomMin) &&
+            (Camera.main.orthographicSize <= cameraZoomMax) &&
+            (Camera.main.orthographicSize != targetOrtho)) {
+            Camera.main.orthographicSize = Mathf.MoveTowards(Camera.main.orthographicSize, targetOrtho, cameraSmoothSpeed * Time.deltaTime);
+        }
+        else if (Camera.main.orthographicSize < cameraZoomMin) {
+            Camera.main.orthographicSize = cameraZoomMin;
+        }
+        else if (Camera.main.orthographicSize > cameraZoomMax) {
+            Camera.main.orthographicSize = cameraZoomMax;
         }
 
         // Handle panning camera with mouse click and drag.

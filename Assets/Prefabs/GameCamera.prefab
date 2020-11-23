@@ -97,9 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25459aabdd6026b4a8724547ef8d39de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  cameraZoomSpeed: 3
-  cameraPanSpeed: 0.1
+  cameraZoomSpeed: 25
+  cameraPanSpeed: 0.07
+  cameraSmoothSpeed: 30
+  cameraZoomMax: 50
+  cameraZoomMin: 5
   moonBall: {fileID: 0}
 --- !u!1001 &6541946366448359684
 PrefabInstance:
