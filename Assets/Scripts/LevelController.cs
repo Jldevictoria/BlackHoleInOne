@@ -75,7 +75,14 @@ public class LevelController : MonoBehaviour
         {
             //print("Object list:");
             //print(astralBody.name);
-            curState.Add(astralBody.name, astralBody.transform.position);
+            if (curState.ContainsKey(astralBody.name))
+            {
+                curState[astralBody.name] = astralBody.transform.position;
+            }
+            else
+            {
+                curState.Add(astralBody.name, astralBody.transform.position);
+            }
             //print(curState[astralBody.name]);
         }
 

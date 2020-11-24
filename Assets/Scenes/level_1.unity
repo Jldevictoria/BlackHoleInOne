@@ -261,7 +261,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 20
 --- !u!1 &278990717
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,7 +326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1429994948, guid: 2cfe15cc709b09c4297deace360e64d7, type: 3}
       propertyPath: orbitSpeed
-      value: 0.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1429994948, guid: 2cfe15cc709b09c4297deace360e64d7, type: 3}
       propertyPath: clockwise
@@ -341,7 +341,7 @@ PrefabInstance:
     - target: {fileID: 7156670251122751501, guid: 2cfe15cc709b09c4297deace360e64d7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.2
+      value: -46
       objectReference: {fileID: 0}
     - target: {fileID: 7156670251122751501, guid: 2cfe15cc709b09c4297deace360e64d7,
         type: 3}
@@ -624,7 +624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelScore: 0
-  levelPar: 3
+  levelPar: 2
   startPlanet: {fileID: 0}
   endPlanet: {fileID: 687053545}
   moonBall: {fileID: 1647558926}
@@ -1261,7 +1261,7 @@ PrefabInstance:
     - target: {fileID: -5234782278086153829, guid: d00c9555795d52d40ae1de8b122ca7ca,
         type: 3}
       propertyPath: gravCoeff
-      value: 10000
+      value: 110000
       objectReference: {fileID: 0}
     - target: {fileID: -5234782278086153829, guid: d00c9555795d52d40ae1de8b122ca7ca,
         type: 3}
@@ -1297,12 +1297,12 @@ PrefabInstance:
     - target: {fileID: 7051564259205922138, guid: d00c9555795d52d40ae1de8b122ca7ca,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.9
+      value: -40.75
       objectReference: {fileID: 0}
     - target: {fileID: 7051564259205922138, guid: d00c9555795d52d40ae1de8b122ca7ca,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7051564259205922138, guid: d00c9555795d52d40ae1de8b122ca7ca,
         type: 3}
@@ -1421,7 +1421,7 @@ MonoBehaviour:
   targetBody: {fileID: 334667769}
   clockwise: 1
   skew: 0
-  orbitSpeed: 1
+  orbitSpeed: 0
   startAngle: 0
   radius: 10
   angle: 0

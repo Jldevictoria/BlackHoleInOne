@@ -2031,7 +2031,7 @@ PrefabInstance:
     - target: {fileID: -5234782278086153829, guid: d00c9555795d52d40ae1de8b122ca7ca,
         type: 3}
       propertyPath: gravCoeff
-      value: 10000
+      value: 110000
       objectReference: {fileID: 0}
     - target: {fileID: -5234782278086153829, guid: d00c9555795d52d40ae1de8b122ca7ca,
         type: 3}

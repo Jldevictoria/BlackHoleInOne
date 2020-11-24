@@ -116,7 +116,7 @@ public class MoonBallController : MonoBehaviour
                 //print(mass);
                 // Calculate force to apply
                 finalForce += forceDirection * gravCoeff * mass / Mathf.Pow(forceRadius, 2);
-                //print(finalForce);
+                print(entry.Key);
             }
             // Add total force
             rigidBody2D.AddForce(finalForce);
