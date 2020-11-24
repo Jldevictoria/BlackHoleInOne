@@ -762,7 +762,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalScore: 0
   curLevel: 0
-  totalLevels: 1
+  totalLevels: 2
 --- !u!4 &1995106064
 Transform:
   m_ObjectHideFlags: 0
