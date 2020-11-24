@@ -13,7 +13,7 @@ public class OrbitObject : MonoBehaviour
     public float radius = 10.0f;    
     public float angle = 0.0f;
 
-    private float direction = 1.0f;
+    public float direction = 1.0f;
 
     // Start is called before the first frame update
     void Start()

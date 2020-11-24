@@ -32,7 +32,6 @@ public class MoonBallController : MonoBehaviour
         orbiting = GetComponent<OrbitObject>();
         canLaunch = true;
         captureMouseMovement = false;
-        gravCoeff = 5000.0f;
         canGravity = false;
         // Check gravity well status
         checkGravity();
@@ -56,7 +55,7 @@ public class MoonBallController : MonoBehaviour
 
                     // Save current state so we can reload
                     print("TODO: Game state should save here.");
-                    //levelController.SaveState();
+                    levelController.SaveState();
                 }
             }
         }
@@ -121,14 +120,11 @@ public class MoonBallController : MonoBehaviour
             }
             // Add total force
             rigidBody2D.AddForce(finalForce);
-            print("Force happened");
         }
         else
         {
             // do nothing
         }
-
-
     }
 
     void FreezeGame()
@@ -162,14 +158,16 @@ public class MoonBallController : MonoBehaviour
             rigidBody2D.velocity = new Vector2(0, 0);
             canGravity = false;
             canLaunch = true;
+
             // Orbit around new object
             orbiting.enabled = true;
-            float rotation = -1.0f; // TODO: Make based on collision position
+
+            // TODO: Make based on collision position
+            float rotation = -1.0f; 
             orbiting.changeTargetBody(other.transform.parent.gameObject, rotation);
-            
+
             // Remove from gravity list
             planetArray.Remove(other.transform.parent.gameObject.name);
-
         }
         else
         {
@@ -194,7 +192,7 @@ public class MoonBallController : MonoBehaviour
                 {
                     planetArray.Add(other.transform.parent.gameObject.name, other);
                 }
-                print("Leaving " + other.transform.parent.gameObject.name + " well.");
+                //print("Leaving " + other.transform.parent.gameObject.name + " well.");
             }
             // if in orbit
             else
@@ -205,7 +203,7 @@ public class MoonBallController : MonoBehaviour
         else if (other.tag == "gravityWellEnd")
         {
             planetArray.Remove(other.transform.parent.gameObject.name);
-            print("Leaving " + other.transform.parent.gameObject.name + " well.");
+            //print("Leaving " + other.transform.parent.gameObject.name + " well.");
         }
         else if (other.tag == "orbitRing")
         {
@@ -214,7 +212,10 @@ public class MoonBallController : MonoBehaviour
         else if (other.tag == "boundary")
         {
             print("TODO: Implement out of bounds logic.");
-            //gameController.OutOfBounds();
+            levelController.OutOfBounds();
+            // TODO: Clean this garbage
+            rigidBody2D.velocity = new Vector2(0, 0);
+            Start();
         }
         else
         {
