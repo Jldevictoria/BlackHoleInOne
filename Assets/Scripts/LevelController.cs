@@ -14,17 +14,24 @@ public class LevelController : MonoBehaviour
     public GameObject curPlanet;
     public GameObject boundary;
 
-    public Dictionary<GameObject, Vector3> curState;
+    public Dictionary<string, Vector3> curState;
 
     private GameController gameController;
+    private OrbitObject moonBallOrbit;
+    private float curDirection;
+    private Vector3 curPosition;
+    private GameObject curBody;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        moonBallOrbit = moonBall.GetComponent<OrbitObject>();
         levelScore = 0;
-        startPlanet = moonBall.GetComponent<OrbitObject>().targetBody;
+        startPlanet = moonBallOrbit.targetBody;
         curPlanet = startPlanet;
+        curState = new Dictionary<string, Vector3>();
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
+
     }
 
     // Update is called once per frame
@@ -62,23 +69,55 @@ public class LevelController : MonoBehaviour
 
     public void SaveState()
     {
-        GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>();
+        // Handle all planets
+        GameObject[] allObjects = GameObject.FindGameObjectsWithTag("planet");
         foreach (GameObject astralBody in allObjects)
         {
-            curState.Add(astralBody, astralBody.transform.position);
-            print(astralBody.name);
+            //print("Object list:");
+            //print(astralBody.name);
+            if (curState.ContainsKey(astralBody.name))
+            {
+                curState[astralBody.name] = astralBody.transform.position;
+            }
+            else
+            {
+                curState.Add(astralBody.name, astralBody.transform.position);
+            }
+            //print(curState[astralBody.name]);
         }
+
+        // Handle Moon
+        curBody = moonBallOrbit.targetBody;
+        curDirection = moonBallOrbit.direction;
+        curPosition = moonBall.transform.position;
     }
 
     public void LoadState()
     {
-        GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>();
-        foreach (GameObject astralBody in allObjects)
+        // Handle all planets        
+        foreach (KeyValuePair<string, Vector3> entry in curState)
         {
-            astralBody.transform.position = curState[astralBody];
+            GameObject astralBody = GameObject.Find(entry.Key);
+            print(astralBody.transform.position);
+            print(astralBody.transform.localPosition);
+            astralBody.transform.localPosition = entry.Value;
+            print("Load List:");
+            print(astralBody.name);
+            print(curState[astralBody.name]);
+            print(astralBody.transform.position);
         }
         // Clear dict
-        curState = new Dictionary<GameObject, Vector3>();
+        curState = new Dictionary<string, Vector3>();
+
+        // Handle Moon
+        moonBallOrbit.changeTargetBody(curBody, curDirection);
+        moonBall.transform.position = curPosition;
     }
 
+    public void OutOfBounds()
+    {
+        UpdateLevelScore();
+        LoadState();
+        //moonBall.Start();
+    }
 }
