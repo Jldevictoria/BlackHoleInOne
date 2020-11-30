@@ -21,7 +21,7 @@ public class OrbitObject : MonoBehaviour
         // Calculate angle and radius based on positions in scene - lets us drag and drop the planets and satellites
         Vector3 targetPosition = targetBody.transform.position;
         radius = Vector3.Distance(targetPosition, transform.position);
-        angle = getAngle(targetPosition, transform.position);
+        angle = getAngle(targetPosition, transform.position, radius);
 
         // Sets rotation direction
         if (clockwise) {
@@ -43,17 +43,18 @@ public class OrbitObject : MonoBehaviour
     }
 
     // getAngle finds the starting angle of the satellite with respect to the orbit it creates
-    private float getAngle(Vector3 center, Vector3 satellite)
+    public float getAngle(Vector3 center, Vector3 satellite, float _radius)
     {
         Vector3 relativePosition = satellite - center;
-        float unitAngle = Mathf.Acos(relativePosition.x/radius) * Mathf.Sign(relativePosition.y);
+        float unitAngle = Mathf.Acos(relativePosition.x/_radius) * Mathf.Sign(relativePosition.y);
         return unitAngle;
     }
 
-    public void changeTargetBody(GameObject newBody, float rotation)
+    public void changeTargetBody(GameObject newBody, float rotation, float new_radius)
     {
         targetBody = newBody;
         direction = rotation;
+        radius = new_radius;
         Start();
     }
 }

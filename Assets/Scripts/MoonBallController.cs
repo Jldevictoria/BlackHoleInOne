@@ -38,9 +38,12 @@ public class MoonBallController : MonoBehaviour
         levelController = levelControllerObject.GetComponent<LevelController>();
         rigidBody2D = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
+        Material whiteDiffuseMat = new Material(Shader.Find("Unlit/Texture"));
+        lineRenderer.material = whiteDiffuseMat;
         lineRenderer.material.color = Color.blue;
         previewRenderer = transform.GetChild(0).gameObject.GetComponent<LineRenderer>();
-        previewRenderer.material.color = Color.red;
+        previewRenderer.material = whiteDiffuseMat;
+        previewRenderer.material.color = Color.white;
         orbiting = GetComponent<OrbitObject>();
         canLaunch = true;
         captureMouseMovement = false;
@@ -196,8 +199,10 @@ public class MoonBallController : MonoBehaviour
             orbiting.enabled = true;
 
             // TODO: Make based on collision position
-            float rotation = -1.0f; 
-            orbiting.changeTargetBody(other.transform.parent.gameObject, rotation);
+            float radius = Vector3.Distance(other.transform.position, transform.position);
+            float rotation = Vector3.Angle(other.transform.position - transform.position, rigidBody2D.velocity);
+            print(rotation);
+            orbiting.changeTargetBody(other.transform.parent.gameObject, rotation, radius);
 
             // Remove from gravity list
             planetArray.Remove(other.transform.parent.gameObject.name);

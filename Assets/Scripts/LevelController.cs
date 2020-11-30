@@ -21,6 +21,7 @@ public class LevelController : MonoBehaviour
     private float curDirection;
     private Vector3 curPosition;
     private GameObject curBody;
+    private float curRadius;
 
     // Start is called before the first frame update
     void Start()
@@ -90,6 +91,7 @@ public class LevelController : MonoBehaviour
         curBody = moonBallOrbit.targetBody;
         curDirection = moonBallOrbit.direction;
         curPosition = moonBall.transform.position;
+        curRadius = moonBallOrbit.radius;
     }
 
     public void LoadState()
@@ -110,7 +112,7 @@ public class LevelController : MonoBehaviour
         curState = new Dictionary<string, Vector3>();
 
         // Handle Moon
-        moonBallOrbit.changeTargetBody(curBody, curDirection);
+        moonBallOrbit.changeTargetBody(curBody, curDirection, curRadius);
         moonBall.transform.position = curPosition;
     }
 
