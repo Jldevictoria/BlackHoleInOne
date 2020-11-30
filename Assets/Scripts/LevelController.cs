@@ -21,6 +21,7 @@ public class LevelController : MonoBehaviour
     private float curDirection;
     private Vector3 curPosition;
     private GameObject curBody;
+    private float curRadius;
 
     // Start is called before the first frame update
     void Start()
@@ -90,6 +91,7 @@ public class LevelController : MonoBehaviour
         curBody = moonBallOrbit.targetBody;
         curDirection = moonBallOrbit.direction;
         curPosition = moonBall.transform.position;
+        curRadius = moonBallOrbit.radius;
     }
 
     public void LoadState()
@@ -98,19 +100,19 @@ public class LevelController : MonoBehaviour
         foreach (KeyValuePair<string, Vector3> entry in curState)
         {
             GameObject astralBody = GameObject.Find(entry.Key);
-            print(astralBody.transform.position);
-            print(astralBody.transform.localPosition);
+            //print(astralBody.transform.position);
+            //print(astralBody.transform.localPosition);
             astralBody.transform.localPosition = entry.Value;
-            print("Load List:");
-            print(astralBody.name);
-            print(curState[astralBody.name]);
-            print(astralBody.transform.position);
+            //print("Load List:");
+            //print(astralBody.name);
+            //print(curState[astralBody.name]);
+            //print(astralBody.transform.position);
         }
         // Clear dict
         curState = new Dictionary<string, Vector3>();
 
         // Handle Moon
-        moonBallOrbit.changeTargetBody(curBody, curDirection);
+        moonBallOrbit.changeTargetBody(curBody, curDirection, curRadius);
         moonBall.transform.position = curPosition;
     }
 
