@@ -23,9 +23,14 @@ public class MoonBallController : MonoBehaviour
     public GameObject levelControllerObject;
     public string[] planetNames;
     private LevelController levelController;
-
+    private bool launch_ball;
     // Preview Shot Code
     public Vector3[] previewLoci;
+    private GameObject[] planets;
+    private GameObject[] orbits;
+    private Vector3 gravForce;
+    private Vector3 launchForce;
+    private bool resolve_gravity;
 
     // Start is called before the first frame update
     void Start()
@@ -41,9 +46,28 @@ public class MoonBallController : MonoBehaviour
         captureMouseMovement = false;
         canGravity = false;
         // Check gravity well status
+        planets = GameObject.FindGameObjectsWithTag("planet");
+        orbits = GameObject.FindGameObjectsWithTag("orbitRing");
         planetArray = checkGravity(transform.position);
+        launch_ball = false;
+        resolve_gravity = false;
     }
 
+    private void FixedUpdate()
+    {
+        // Add Gravity Force
+        if (resolve_gravity)
+        {
+            rigidBody2D.AddForce(gravForce);
+            resolve_gravity = false;
+        }
+        // Add Launch Force
+        if (launch_ball)
+        {
+            //rigidBody2D.velocity = (launchForce);
+            //launch_ball = false;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -66,35 +90,6 @@ public class MoonBallController : MonoBehaviour
                 }
             }
         }
-        if (Input.GetMouseButton(0) && captureMouseMovement) {
-            Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 delta = startMousePosition - currentMousePos;
-            Vector3 velocity_shot = new Vector3((delta.x * power), (delta.y * power), 0);
-            rigidBody2D.velocity = velocity_shot;
-
-            // Back Line
-            lineRenderer.SetPosition(0, new Vector3(startMousePosition.x, startMousePosition.y, 0.0f));
-            lineRenderer.SetPosition(1, new Vector3(startMousePosition.x - delta.x, startMousePosition.y - delta.y, 0.0f));
-
-            // Preview Line
-            calculatePreviewLoci(velocity_shot);
-            drawPreviewLine();
-        }
-        if (Input.GetMouseButtonUp(0) && captureMouseMovement) {
-            Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 delta = startMousePosition - currentMousePos;
-            Vector3 velocity_shot = new Vector3((delta.x * power), (delta.y * power), 0);
-            rigidBody2D.velocity = velocity_shot; 
-
-            // Back Line
-            lineRenderer.SetPosition(0, Vector3.zero);
-            lineRenderer.SetPosition(1, Vector3.zero);
-
-            // Preview Line
-            erasePreviewLine();
-            captureMouseMovement = false;
-        }
-
         // Freeze while holding down mouseclick
         if (captureMouseMovement)
         {
@@ -105,12 +100,44 @@ public class MoonBallController : MonoBehaviour
             canGravity = true;
             canLaunch = false; // Turning this off right now because its fun
             // Make current planet non-interactable
-
         }
         else
         {
             // Resume movement
             UnfreezeGame();
+        }
+        // Handle Pre-Shot
+        if (Input.GetMouseButton(0) && captureMouseMovement) {
+            Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 delta = startMousePosition - currentMousePos;
+            launchForce = new Vector3((delta.x * power), (delta.y * power), 0);
+            Vector3 velocity_shot = launchForce;
+            
+            // Back Line
+            lineRenderer.SetPosition(0, new Vector3(startMousePosition.x, startMousePosition.y, 0.0f));
+            lineRenderer.SetPosition(1, new Vector3(startMousePosition.x - delta.x, startMousePosition.y - delta.y, 0.0f));
+
+            // Preview Line
+            calculatePreviewLoci(velocity_shot);
+            drawPreviewLine();
+        }
+        // Handle Shot
+        if (Input.GetMouseButtonUp(0) && captureMouseMovement) {
+            // Launch Moon Ball in FixedUpdate
+            Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 delta = startMousePosition - currentMousePos;
+            launchForce = new Vector3((delta.x * power), (delta.y * power), 0);
+
+            launch_ball = true;
+            rigidBody2D.velocity = (launchForce);
+
+            // Back Line
+            lineRenderer.SetPosition(0, Vector3.zero);
+            lineRenderer.SetPosition(1, Vector3.zero);
+
+            // Preview Line
+            erasePreviewLine();
+            captureMouseMovement = false;
         }
 
         // Gravity Well Handling
@@ -120,18 +147,19 @@ public class MoonBallController : MonoBehaviour
             // Do nothing
         }
         // Else
-        else if(canGravity == true)
+        else if (canGravity == true)
         {
             Vector3 moon_pos = transform.position;
             // Set up total force vector
-            Vector3 finalForce = calculateGravForceTotal(moon_pos, planetArray);
+            gravForce = calculateGravForceTotal(moon_pos, planetArray);
             // Add total force
-            rigidBody2D.AddForce(finalForce);
+            resolve_gravity = true;
         }
         else
         {
             // do nothing
         }
+
     }
 
     void FreezeGame()
@@ -146,8 +174,6 @@ public class MoonBallController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        //print(other.transform.parent.gameObject.name);
-        //print("I am triggered.");
         if (other.tag == "gravityWellEnd")
         {
             if (planetArray.ContainsKey(other.transform.parent.gameObject.name))
@@ -234,18 +260,16 @@ public class MoonBallController : MonoBehaviour
     public Dictionary<string, Collider2D> checkGravity(Vector3 moon_pos)
     {
         Dictionary<string, Collider2D> gravArray = new Dictionary<string, Collider2D>();
-        GameObject[] gravityWellStarts = GameObject.FindGameObjectsWithTag("gravityWellStart");
-        GameObject[] gravityWellEnds = GameObject.FindGameObjectsWithTag("gravityWellEnd");
         string orbitingBodyName = orbiting.targetBody.name;
 
-        for (int i = 0; i < gravityWellEnds.Length; i++)
+        foreach (GameObject planet in planets)
         {
-            GameObject gravityWellEnd = gravityWellEnds[i];
-            Collider2D colliderEnd = gravityWellEnd.GetComponent<Collider2D>();
-            GameObject gravityWellStart = gravityWellStarts[i];
+            // TODO: Hardcoded here because it's faster than search for tag twice
+            GameObject gravityWellStart = planet.transform.GetChild(0).gameObject;
+            GameObject gravityWellEnd = planet.transform.GetChild(1).gameObject;
             Collider2D colliderStart = gravityWellStart.GetComponent<Collider2D>();
+            Collider2D colliderEnd = gravityWellEnd.GetComponent<Collider2D>();
             string bodyName = gravityWellEnd.transform.parent.gameObject.name;
-
             // Bool to check if planet is in orbit
             bool is_orbiting_planet = bodyName == orbitingBodyName;
             // Bool to check if planet is in gravityWellStart
@@ -267,7 +291,6 @@ public class MoonBallController : MonoBehaviour
                 {
                     gravArray.Add(bodyName, colliderEnd);
                 }
-                print(bodyName);
             }
             // Else
             else
@@ -305,22 +328,22 @@ public class MoonBallController : MonoBehaviour
     {
         // 1. Set up time step variables for accuracy
         float range = 0.1f;
-        int steps = 100;
+        int steps = 1000;
         float step_size = range / steps;
         previewLoci = new Vector3[steps];
-        Vector3 velocity_shot_real = velocity_shot / Time.deltaTime;
-        print(Time.deltaTime);
+        Vector3 velocity_shot_real = velocity_shot * 35; // TODO: Find out where I screwed up and missed a 10 multiplier
         //print(velocity_shot);
         Dictionary<string, Collider2D> previewPlanetArray;
         // 2. For each time_step in time_array
         // Variables and initial conditions
-        Vector3 velocity_0 = velocity_shot;
+        Vector3 velocity_0 = velocity_shot_real;
         Vector3 velocity_k = velocity_0;
         Vector3 velocity_k1;
         Vector3 position_0 = transform.position;
         Vector3 position_k = position_0;
         Vector3 position_k1;
         previewLoci[0] = position_k;
+        bool in_orbit = false;
         for (int i = 1; i < steps; i++)
         {
             previewPlanetArray = checkGravity(position_k);
@@ -328,12 +351,27 @@ public class MoonBallController : MonoBehaviour
             velocity_k1 = velocity_k + step_size * calculateGravForceTotal(position_k, previewPlanetArray);
             // ii.  Calculate position based on differential equation and Euler's approximation
             position_k1 = position_k + step_size * velocity_k;
+            // If touch an orbit ring, call it
+            foreach (GameObject orbit in orbits)
+            {
+                Collider2D orbit_collider = orbit.GetComponent<Collider2D>();
+                if (orbit_collider.bounds.Contains(position_k1))
+                {
+                    in_orbit = true;
+                    break;
+                }
+            }
+            if (in_orbit)
+            {
+                previewLoci[i] = position_k;
+                continue;
+            }
             // iii. Store result in previewLoci array
             previewLoci[i] = position_k1;
             // iv.  Save next iterations
             velocity_k = velocity_k1;
             position_k = position_k1;
-//            print(position_k);
+            //            print(position_k);
         }
     }
 
