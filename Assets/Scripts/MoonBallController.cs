@@ -24,6 +24,7 @@ public class MoonBallController : MonoBehaviour
     public string[] planetNames;
     private LevelController levelController;
     private bool launch_ball;
+    public float velocity_coeff;
     // Preview Shot Code
     public Vector3[] previewLoci;
     private GameObject[] planets;
@@ -336,7 +337,7 @@ public class MoonBallController : MonoBehaviour
         int steps = 1000;
         float step_size = range / steps;
         previewLoci = new Vector3[steps];
-        Vector3 velocity_shot_real = velocity_shot * 35; // TODO: Find out where I screwed up and missed a 10 multiplier
+        Vector3 velocity_shot_real = velocity_shot * velocity_coeff; // TODO: Find out where I screwed up and missed a 10 multiplier
         //print(velocity_shot);
         Dictionary<string, Collider2D> previewPlanetArray;
         // 2. For each time_step in time_array

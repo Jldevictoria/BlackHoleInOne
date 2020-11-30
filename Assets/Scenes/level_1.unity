@@ -1842,6 +1842,11 @@ PrefabInstance:
       propertyPath: levelControllerObject
       value: 
       objectReference: {fileID: 492514682}
+    - target: {fileID: -5234782278086153829, guid: d00c9555795d52d40ae1de8b122ca7ca,
+        type: 3}
+      propertyPath: velocity_coeff
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 844296649, guid: d00c9555795d52d40ae1de8b122ca7ca, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.r
       value: 1
