@@ -68,10 +68,11 @@ public class MoonBallController : MonoBehaviour
         // Add Launch Force
         if (launch_ball)
         {
-            //rigidBody2D.velocity = (launchForce);
-            //launch_ball = false;
+            rigidBody2D.velocity = (launchForce);
+            launch_ball = false;
         }
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -133,7 +134,6 @@ public class MoonBallController : MonoBehaviour
             launchForce = new Vector3((delta.x * power), (delta.y * power), 0);
 
             launch_ball = true;
-            rigidBody2D.velocity = (launchForce);
 
             // Back Line
             lineRenderer.SetPosition(0, Vector3.zero);
@@ -361,7 +361,7 @@ public class MoonBallController : MonoBehaviour
             foreach (GameObject orbit in orbits)
             {
                 Collider2D orbit_collider = orbit.GetComponent<Collider2D>();
-                if (orbit_collider.bounds.Contains(position_k1))
+                if (orbit_collider.bounds.Contains(position_k))
                 {
                     in_orbit = true;
                     break;
