@@ -25,7 +25,7 @@ public class MoonBallController : MonoBehaviour
     private LevelController levelController;
     private bool launch_ball;
     public float velocity_coeff;
-    
+
     // Preview Shot Code
     public Vector3[] previewLoci;
     private GameObject[] planets;
