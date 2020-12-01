@@ -41,7 +41,7 @@ public class StarController : AstralBodyController
                 moonBall.SetActive(true);
                 // Flip bool
                 ball_destroyed = false;
-                levelController.LoadState();
+                levelController.OutOfBounds();
             }
         }
     }
