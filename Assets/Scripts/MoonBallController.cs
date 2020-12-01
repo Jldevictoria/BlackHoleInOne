@@ -37,6 +37,10 @@ public class MoonBallController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Check gravity well status
+        planets = GameObject.FindGameObjectsWithTag("planet");
+        orbits = GameObject.FindGameObjectsWithTag("orbitRing");
+        planetArray = checkGravity(transform.position);
         levelController = levelControllerObject.GetComponent<LevelController>();
         rigidBody2D = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
@@ -50,10 +54,6 @@ public class MoonBallController : MonoBehaviour
         canLaunch = true;
         captureMouseMovement = false;
         canGravity = false;
-        // Check gravity well status
-        planets = GameObject.FindGameObjectsWithTag("planet");
-        orbits = GameObject.FindGameObjectsWithTag("orbitRing");
-        planetArray = checkGravity(transform.position);
         launch_ball = false;
         resolve_gravity = false;
         scoreText = GameObject.Find("GolfScore");
