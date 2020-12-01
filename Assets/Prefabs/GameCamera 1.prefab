@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7702988548883864330}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraZoomSpeed: 25
   cameraPanSpeed: 0.07
-  cameraSmoothSpeed: 30
-  cameraZoomMax: 100
+  cameraSmoothSpeed: 40
+  cameraZoomMax: 150
   cameraZoomMin: 5
   moonBall: {fileID: 0}

@@ -37,10 +37,11 @@ public class StarController : AstralBodyController
             // Wait for click
             if (Input.GetMouseButton(0))
             {
-                // Restore ball
+                //// Restore ball
                 moonBall.SetActive(true);
                 // Flip bool
                 ball_destroyed = false;
+                levelController.LoadState();
             }
         }
     }
