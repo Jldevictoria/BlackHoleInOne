@@ -1,0 +1,407 @@
+fileFormatVersion: 2
+guid: d36d8659f3202de4f90b677dff99f5ce
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5863943456073541568
+    second: WormholeSprites_noBG_0
+  - first:
+      213: 4191541159078620375
+    second: WormholeSprites_noBG_1
+  - first:
+      213: -3677721955336184141
+    second: WormholeSprites_noBG_2
+  - first:
+      213: -8994464180775194975
+    second: WormholeSprites_noBG_3
+  - first:
+      213: -4045468336379967866
+    second: WormholeSprites_noBG_4
+  - first:
+      213: -3833859627533670263
+    second: WormholeSprites_noBG_5
+  - first:
+      213: -2492745643623451982
+    second: WormholeSprites_noBG_6
+  - first:
+      213: 1395091449507210695
+    second: WormholeSprites_noBG_7
+  - first:
+      213: -7198250191562126838
+    second: WormholeSprites_noBG_8
+  - first:
+      213: 8505071931287935835
+    second: WormholeSprites_noBG_9
+  - first:
+      213: -591786631158375336
+    second: WormholeSprites_noBG_10
+  - first:
+      213: -8044120010106348751
+    second: WormholeSprites_noBG_11
+  - first:
+      213: 7609043120047390288
+    second: WormholeSprites_noBG_12
+  - first:
+      213: -2689635925482290772
+    second: WormholeSprites_noBG_13
+  - first:
+      213: -4855516555456442504
+    second: WormholeSprites_noBG_14
+  - first:
+      213: 268266856392718647
+    second: WormholeSprites_noBG_15
+  - first:
+      213: 7191384924655412063
+    second: WormholeSprites_noBG_16
+  - first:
+      213: -2875557843657640304
+    second: WormholeSprites_noBG_17
+  - first:
+      213: -8073996587383994484
+    second: WormholeSprites_noBG_18
+  - first:
+      213: 8682754025273624399
+    second: WormholeSprites_noBG_19
+  - first:
+      213: -908706731200298035
+    second: WormholeSprites_noBG_20
+  - first:
+      213: 181191370560041109
+    second: WormholeSprites_noBG_21
+  - first:
+      213: 6558195188552284833
+    second: WormholeSprites_noBG_22
+  - first:
+      213: 8397138918289853800
+    second: WormholeSprites_noBG_23
+  - first:
+      213: -8226279906046625504
+    second: WormholeSprites_noBG_24
+  - first:
+      213: 5190471289925153708
+    second: WormholeSprites_noBG_25
+  - first:
+      213: -5315966785522264182
+    second: WormholeSprites_noBG_26
+  - first:
+      213: 8460693286135384110
+    second: WormholeSprites_noBG_27
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Lumin
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: WormholeSprites_noBG_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 123
+        width: 482
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dc6f48f9785b2a30800000000000000
+      internalID: 4191541159078620375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WormholeSprites_noBG_2
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 123
+        width: 482
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3be1885fd5b16fcc0800000000000000
+      internalID: -3677721955336184141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WormholeSprites_noBG_3
+      rect:
+        serializedVersion: 2
+        x: 1014
+        y: 123
+        width: 482
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ae6be77b7e3d2380800000000000000
+      internalID: -8994464180775194975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WormholeSprites_noBG_4
+      rect:
+        serializedVersion: 2
+        x: 1511
+        y: 123
+        width: 492
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6864bfb5bfb9bd7c0800000000000000
+      internalID: -4045468336379967866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WormholeSprites_noBG_5
+      rect:
+        serializedVersion: 2
+        x: 2004
+        y: 123
+        width: 482
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 988e42e3bf46bcac0800000000000000
+      internalID: -3833859627533670263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WormholeSprites_noBG_6
+      rect:
+        serializedVersion: 2
+        x: 2496
+        y: 123
+        width: 487
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b2fb645b0df76dd0800000000000000
+      internalID: -2492745643623451982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WormholeSprites_noBG_7
+      rect:
+        serializedVersion: 2
+        x: 2989
+        y: 123
+        width: 482
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c5ef05284c5c5310800000000000000
+      internalID: 1395091449507210695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
