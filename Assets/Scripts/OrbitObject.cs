@@ -9,10 +9,8 @@ public class OrbitObject : MonoBehaviour
     public float skew = 0.0f;
     public float orbitSpeed = 1.0f;
     public float startAngle = 0.0f;
-
     public float radius = 10.0f;    
     public float angle = 0.0f;
-
     public float direction = 1.0f;
 
     // Start is called before the first frame update
