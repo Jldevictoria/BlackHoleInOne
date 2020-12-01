@@ -56,6 +56,7 @@ public class MoonBallController : MonoBehaviour
         planetArray = checkGravity(transform.position);
         launch_ball = false;
         resolve_gravity = false;
+        scoreText = GameObject.Find("GolfScore");
     }
 
     private void FixedUpdate()
