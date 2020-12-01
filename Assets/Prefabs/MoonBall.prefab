@@ -276,6 +276,7 @@ MonoBehaviour:
   orbiting: {fileID: 0}
   canGravity: 0
   levelControllerObject: {fileID: 0}
+  scoreText: {fileID: 0}
   planetNames: []
   velocity_coeff: 33
   previewLoci: []
