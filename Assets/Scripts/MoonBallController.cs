@@ -21,6 +21,7 @@ public class MoonBallController : MonoBehaviour
     public OrbitObject orbiting;
     public bool canGravity;
     public GameObject levelControllerObject;
+    public GameObject scoreText;
     public string[] planetNames;
     private LevelController levelController;
     private bool launch_ball;
@@ -142,6 +143,11 @@ public class MoonBallController : MonoBehaviour
             // Preview Line
             erasePreviewLine();
             captureMouseMovement = false;
+
+            // Update score
+            uint score = System.Convert.ToUInt32(scoreText.GetComponent<UnityEngine.UI.Text>().text);
+            score++;
+            scoreText.GetComponent<UnityEngine.UI.Text>().text = score.ToString();
         }
 
         // Gravity Well Handling
