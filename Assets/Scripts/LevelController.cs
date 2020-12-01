@@ -33,6 +33,7 @@ public class LevelController : MonoBehaviour
         curState = new Dictionary<string, Vector3>();
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
         scoreText = GameObject.Find("GolfScore");
+        scoreText.GetComponent<UnityEngine.UI.Text>().text = levelScore.ToString();
     }
 
     // Update is called once per frame

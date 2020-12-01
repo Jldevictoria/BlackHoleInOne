@@ -39,7 +39,7 @@ public class WaterController : AstralBodyController
             if (Input.GetMouseButton(0))
             {
                 // Restore ball
-                moonBall.SetActive(true);
+                //moonBall.SetActive(true);
                 moonBall.transform.position = new Vector3(transform.position.x + 5, transform.position.y + 5);
                 // Orbit Ring
 //                moonBallOrbit.changeTargetBody(this, 1.0f, 4);
@@ -59,7 +59,7 @@ public class WaterController : AstralBodyController
             // Flip Bool
             ball_destroyed = true;
             // Turn off ball
-            moonBall.SetActive(false);
+            //moonBall.SetActive(false);
         }
     }
 }

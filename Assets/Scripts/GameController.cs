@@ -9,8 +9,8 @@ public class GameController : MonoBehaviour
     public int curLevel;
     public int totalLevels;
 
-    private GameObject previousScoreText;
-    private GameObject bestScoreText;
+    public GameObject previousScoreText;
+    public GameObject bestScoreText;
     private int previousScore;
     private int bestScore;
 
@@ -18,17 +18,33 @@ public class GameController : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
 
-        totalScore = 0;
-        curLevel = -1;
-
-        //SceneManager.LoadScene("level_" + curLevel);
+        if (GameObject.FindGameObjectsWithTag("GameController").Length > 1)
+        {
+            GameObject curController = GameObject.FindGameObjectsWithTag("GameController")[0];
+            bestScore = curController.GetComponent<GameController>().bestScore;
+            previousScore = curController.GetComponent<GameController>().previousScore;
+            Destroy(curController);
+        }
+        else
+        {
+            bestScore = 9999;
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        totalScore = 0;
+        curLevel = -1;
+
         previousScoreText = GameObject.Find("PreviousScore");
         bestScoreText = GameObject.Find("BestScore");
+
+        // Update the score text in the lobby to reflect your best game!
+        previousScoreText.GetComponent<UnityEngine.UI.Text>().text = previousScore.ToString();
+        bestScoreText.GetComponent<UnityEngine.UI.Text>().text = bestScore.ToString();
+
+        //SceneManager.activeSceneChanged += ChangedActiveScene;
     }
 
     // Update is called once per frame
@@ -42,6 +58,9 @@ public class GameController : MonoBehaviour
         totalScore += levelScore;
         curLevel += 1;
 
+        print(bestScore);
+        print(previousScore);
+        print(totalScore);
         if (curLevel < totalLevels)
         {
             print("Loading next level: level_" + curLevel + "!");
@@ -53,15 +72,11 @@ public class GameController : MonoBehaviour
             if (previousScore < bestScore) {
                 bestScore = previousScore;
             }
-            totalScore = 0;
 
+            print(bestScore);
+            print(previousScore);
+            print(totalScore);
             SceneManager.LoadScene("lobby");
-
-            // Update the score text in the lobby to reflect your best game!
-            previousScoreText = GameObject.Find("PreviousScore");
-            bestScoreText = GameObject.Find("BestScore");
-            previousScoreText.GetComponent<UnityEngine.UI.Text>().text = previousScore.ToString();
-            bestScoreText.GetComponent<UnityEngine.UI.Text>().text = bestScore.ToString();
         }
     }
 
@@ -75,4 +90,19 @@ public class GameController : MonoBehaviour
     {
         Application.Quit();
     }
+
+    private void ChangedActiveScene(Scene current, Scene next)
+    {
+        if (next.name == "lobby")
+        {
+            print(bestScore);
+            print(previousScore);
+            print(totalScore);
+            Start();
+            print(bestScore);
+            print(previousScore);
+            print(totalScore);
+        }
+    }
 }
+
