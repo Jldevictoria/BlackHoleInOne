@@ -343,7 +343,7 @@ public class MoonBallController : MonoBehaviour
     {
         // 1. Set up time step variables for accuracy
         float range = 0.1f;
-        int steps = 1000;
+        int steps = 500;
         float step_size = range / steps;
         previewLoci = new Vector3[steps];
         Vector3 velocity_shot_real = velocity_shot * velocity_coeff; // TODO: Find out where I screwed up and missed a 10 multiplier
