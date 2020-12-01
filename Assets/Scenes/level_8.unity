@@ -220,6 +220,24 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1962807635}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &723773013 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7187629695659178765, guid: 6c02057d8b561784e8193d01e48442f7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1965855849}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &723773017 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6605590360981602113, guid: 6c02057d8b561784e8193d01e48442f7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1965855849}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723773013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68edacf0fe436984e9ec3376ede021b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &923869107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -802,7 +820,7 @@ PrefabInstance:
         type: 3}
       propertyPath: targetBody
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 723773013}
     - target: {fileID: 7503961187881456256, guid: d00c9555795d52d40ae1de8b122ca7ca,
         type: 3}
       propertyPath: orbitSpeed
@@ -817,7 +835,7 @@ PrefabInstance:
         type: 3}
       propertyPath: orbiting
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 723773017}
     - target: {fileID: 7503961187881456258, guid: d00c9555795d52d40ae1de8b122ca7ca,
         type: 3}
       propertyPath: levelControllerObject
