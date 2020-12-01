@@ -114,16 +114,16 @@ public class LevelController : MonoBehaviour
         }
         // Clear dict
         curState = new Dictionary<string, Vector3>();
-
-        // Handle Moon
-        moonBallOrbit.changeTargetBody(curBody, curDirection, curRadius);
-        moonBall.transform.position = curPosition;
     }
 
     public void OutOfBounds()
     {
         UpdateLevelScore();
-        LoadState();
-        //moonBall.Start();
+        // Handle Moon
+        moonBallOrbit.changeTargetBody(curBody, curDirection, curRadius);
+        moonBall.transform.position = new Vector3(curBody.transform.position.x + 10, curBody.transform.position.y + 10);
+
+        // Orbit Ring
+        moonBallOrbit.changeTargetBody(curBody, 1.0f, 5);
     }
 }
