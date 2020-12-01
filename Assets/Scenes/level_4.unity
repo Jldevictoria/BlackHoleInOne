@@ -732,6 +732,11 @@ PrefabInstance:
       propertyPath: targetBody
       value: 
       objectReference: {fileID: 2302385960284852173}
+    - target: {fileID: 6605590360981602113, guid: 6c02057d8b561784e8193d01e48442f7,
+        type: 3}
+      propertyPath: orbitSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7187629695659178765, guid: 6c02057d8b561784e8193d01e48442f7,
         type: 3}
       propertyPath: m_Name
