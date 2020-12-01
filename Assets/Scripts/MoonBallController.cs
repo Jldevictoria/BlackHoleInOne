@@ -57,7 +57,6 @@ public class MoonBallController : MonoBehaviour
         launch_ball = false;
         resolve_gravity = false;
         scoreText = GameObject.Find("GolfScore");
-        scoreText.GetComponent<UnityEngine.UI.Text>().text = "0";
     }
 
     private void FixedUpdate()

@@ -48,5 +48,6 @@ MonoBehaviour:
   startPlanet: {fileID: 0}
   endPlanet: {fileID: 0}
   moonBall: {fileID: 0}
+  scoreText: {fileID: 0}
   curPlanet: {fileID: 0}
   boundary: {fileID: 0}

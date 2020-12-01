@@ -6396,7 +6396,7 @@ GameObject:
   - component: {fileID: 1995106063}
   m_Layer: 0
   m_Name: GameController
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6415,7 +6415,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalScore: 0
   curLevel: 0
-  totalLevels: 2
+  totalLevels: 1
+  previousScoreText: {fileID: 0}
+  bestScoreText: {fileID: 0}
 --- !u!4 &1995106064
 Transform:
   m_ObjectHideFlags: 0

@@ -40,9 +40,9 @@ public class WaterController : AstralBodyController
             {
                 // Restore ball
                 moonBall.SetActive(true);
-                moonBall.transform.position = new Vector3(transform.position.x + 5, transform.position.y + 5);
+                moonBall.transform.position = new Vector3(transform.position.x + 10, transform.position.y + 10);
                 // Orbit Ring
-//                moonBallOrbit.changeTargetBody(this, 1.0f, 4);
+                moonBallOrbit.changeTargetBody(this.gameObject, 1.0f, 5);
                 // Flip bool
                 ball_destroyed = false;
             }
