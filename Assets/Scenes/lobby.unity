@@ -6414,8 +6414,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalScore: 0
-  curLevel: 0
-  totalLevels: 1
+  curLevel: -1
+  totalLevels: 4
   previousScoreText: {fileID: 0}
   bestScoreText: {fileID: 0}
 --- !u!4 &1995106064

@@ -149,7 +149,7 @@ MonoBehaviour:
   targetBody: {fileID: 0}
   clockwise: 1
   skew: 0
-  orbitSpeed: 0
+  orbitSpeed: 0.1
   startAngle: 0
   radius: 10
   angle: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89619b94a5fbba24b88ca145972d1ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 100
+  mass: 150
 --- !u!1 &7977001286282540813
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +227,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 3
 --- !u!1 &7977001286440178313
 GameObject:
   m_ObjectHideFlags: 0
