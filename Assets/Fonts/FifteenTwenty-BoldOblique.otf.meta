@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 67f3719c5c0d2b447b2ab7085235b4f9
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: FifteenTwenty
+  fontNames:
+  - FifteenTwenty
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: d222d463ed7776643b55e30234e308c9, type: 3}
+  - {fileID: 12800000, guid: b4c5cd4429fd9f24c8956ee013165a15, type: 3}
+  - {fileID: 12800000, guid: 64c6d668b800859468bdaaacca1cf890, type: 3}
+  - {fileID: 12800000, guid: 2447f4cc3c36e7c4d83ae311d21580b6, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

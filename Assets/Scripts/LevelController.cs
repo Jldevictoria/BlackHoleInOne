@@ -38,7 +38,9 @@ public class LevelController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        levelScore = System.Convert.ToInt32(scoreText.GetComponent<UnityEngine.UI.Text>().text);
+        if (scoreText != null) {
+            levelScore = System.Convert.ToInt32(scoreText.GetComponent<UnityEngine.UI.Text>().text);
+        }
         curPlanet = moonBall.GetComponent<OrbitObject>().targetBody;
 
         if (curPlanet == endPlanet)

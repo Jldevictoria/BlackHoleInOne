@@ -52,4 +52,9 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene("start");
         Destroy(this.gameObject);
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
