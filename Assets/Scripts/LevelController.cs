@@ -10,7 +10,7 @@ public class LevelController : MonoBehaviour
     public GameObject startPlanet;
     public GameObject endPlanet;
     public GameObject moonBall;
-
+    public GameObject scoreText;
     public GameObject curPlanet;
     public GameObject boundary;
 
@@ -32,12 +32,15 @@ public class LevelController : MonoBehaviour
         curPlanet = startPlanet;
         curState = new Dictionary<string, Vector3>();
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
-
+        scoreText = GameObject.Find("GolfScore");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (scoreText != null) {
+            levelScore = System.Convert.ToInt32(scoreText.GetComponent<UnityEngine.UI.Text>().text);
+        }
         curPlanet = moonBall.GetComponent<OrbitObject>().targetBody;
 
         if (curPlanet == endPlanet)

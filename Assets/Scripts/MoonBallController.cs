@@ -11,7 +11,6 @@ public class MoonBallController : MonoBehaviour
     public float gravCoeff;
     public Dictionary<string, Collider2D> planetArray;
 
-
     public Rigidbody2D rigidBody2D;
     public LineRenderer lineRenderer;
     public LineRenderer previewRenderer;
@@ -21,6 +20,7 @@ public class MoonBallController : MonoBehaviour
     public OrbitObject orbiting;
     public bool canGravity;
     public GameObject levelControllerObject;
+    public GameObject scoreText;
     public string[] planetNames;
     private LevelController levelController;
     private bool launch_ball;
@@ -56,6 +56,8 @@ public class MoonBallController : MonoBehaviour
         planetArray = checkGravity(transform.position);
         launch_ball = false;
         resolve_gravity = false;
+        scoreText = GameObject.Find("GolfScore");
+        scoreText.GetComponent<UnityEngine.UI.Text>().text = "0";
     }
 
     private void FixedUpdate()
@@ -101,10 +103,12 @@ public class MoonBallController : MonoBehaviour
         {
             // Freeze all movements
             FreezeGame();
+
             // Free the moon from its current planet
             orbiting.enabled = false;
             canGravity = true;
             canLaunch = false; // Turning this off right now because its fun
+
             // Make current planet non-interactable
         }
         else
@@ -143,6 +147,11 @@ public class MoonBallController : MonoBehaviour
             // Preview Line
             erasePreviewLine();
             captureMouseMovement = false;
+
+            // Update score
+            uint score = System.Convert.ToUInt32(scoreText.GetComponent<UnityEngine.UI.Text>().text);
+            score++;
+            scoreText.GetComponent<UnityEngine.UI.Text>().text = score.ToString();
         }
 
         // Gravity Well Handling
@@ -351,6 +360,7 @@ public class MoonBallController : MonoBehaviour
         Vector3 position_k1;
         previewLoci[0] = position_k;
         bool in_orbit = false;
+
         for (int i = 1; i < steps; i++)
         {
             previewPlanetArray = checkGravity(position_k);
@@ -387,9 +397,11 @@ public class MoonBallController : MonoBehaviour
     {
         // Calculate radius
         float forceRadius = Vector3.Distance(planet_pos, moon_pos);
+
         // Calculate direction between moon and current object
         Vector3 forceVector = planet_pos - moon_pos;
         Vector3 forceDirection = forceVector / forceRadius;
+
         //print(mass);
 
         return forceDirection* gravCoeff * planet_mass / Mathf.Pow(forceRadius, 2);

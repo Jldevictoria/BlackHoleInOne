@@ -9,6 +9,11 @@ public class GameController : MonoBehaviour
     public int curLevel;
     public int totalLevels;
 
+    private GameObject previousScoreText;
+    private GameObject bestScoreText;
+    private int previousScore;
+    private int bestScore;
+
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -22,7 +27,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        previousScoreText = GameObject.Find("PreviousScore");
+        bestScoreText = GameObject.Find("BestScore");
     }
 
     // Update is called once per frame
@@ -43,7 +49,19 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("game_over");
+            previousScore = totalScore;
+            if (previousScore < bestScore) {
+                bestScore = previousScore;
+            }
+            totalScore = 0;
+
+            SceneManager.LoadScene("lobby");
+
+            // Update the score text in the lobby to reflect your best game!
+            previousScoreText = GameObject.Find("PreviousScore");
+            bestScoreText = GameObject.Find("BestScore");
+            previousScoreText.GetComponent<UnityEngine.UI.Text>().text = previousScore.ToString();
+            bestScoreText.GetComponent<UnityEngine.UI.Text>().text = bestScore.ToString();
         }
     }
 
@@ -51,5 +69,10 @@ public class GameController : MonoBehaviour
     {
         SceneManager.LoadScene("start");
         Destroy(this.gameObject);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
